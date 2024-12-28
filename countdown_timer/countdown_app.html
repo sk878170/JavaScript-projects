@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .main {
+            width: 100%;
+            height: 100vh;
+            background-image: url('./happy-new-year-greeting-template-design-323496387846c93d07ea5931f0f53480_screen.jpg');
+            background-position: center;
+            background-size: auto;
+        }
+
+        .overlay {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.7);
+            
+        }
+
+        .title {
+            margin-top: 10px;
+            color: white;
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        .col {
+            margin-top: 20px;
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            color: white;
+        }
+
+        .col div {
+            width: 250px;
+            text-align: center;
+        }
+
+        input {
+            width: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 5px;
+            height: 50px;
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="overlay">
+            <div class="title">COMING SOON!!</div>
+            <div class="title" id="end-date"></div>
+            <div class="col">
+                <div>
+                    <input id="ip1" type="text" readonly value="0">
+                    <label for="ip1">Days</label>
+                </div>
+                <div>
+                    <input id="ip2" type="text" readonly value="0">
+                    <label for="ip2">Hours</label>
+                </div>
+                <div>
+                    <input id="ip3" type="text" readonly value="0">
+                    <label for="ip3">Minutes</label>
+                </div>
+                <div>
+                    <input id="ip4" type="text" readonly value="0">
+                    <label for="ip4">Seconds</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const enddate = "1 JANUARY 2025 00:00";
+        document.getElementById("end-date").innerText = enddate;
+
+        const inputs = document.querySelectorAll("input");
+
+        function clock() {
+            const end = new Date(enddate);
+            const now = new Date();
+            const diff = (end - now) / 1000;
+
+            if (diff < 0) {
+                inputs.forEach(input => input.value = "0");
+                return;
+            }
+
+            inputs[0].value = Math.floor(diff / 3600 / 24); // Days
+            inputs[1].value = Math.floor((diff / 3600) % 24); // Hours
+            inputs[2].value = Math.floor((diff / 60) % 60); // Minutes
+            inputs[3].value = Math.floor(diff % 60); // Seconds
+        }
+
+        clock();
+        setInterval(clock, 1000);
+    </script>
+</body>
+
+</html>
