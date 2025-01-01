@@ -221,7 +221,8 @@ nav {
 }
 
 .service__card:hover {
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+  background-color: #c1c1c1;
+  box-shadow: -3px -3px 7px #ffffff42, inset 3px 3px 5px black;
 }
 
 .service__card img {
@@ -360,14 +361,6 @@ nav {
   padding-inline: 3rem 1rem;
 }
 
-.client__card img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  max-width: 80px;
-  border-radius: 100%;
-}
-
 .client__card__content {
   padding: 2rem;
   border-radius: 1rem;
@@ -389,6 +382,13 @@ nav {
   font-size: 1rem;
   font-weight: 500;
   color: var(--text-light);
+  
+}
+
+
+body.loaded .client__container {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .footer__container {
