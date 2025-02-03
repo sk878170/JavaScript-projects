@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1{
+            color: black;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Background color</h1>
+    </div>
+
+    <script>
+        const body=document.body;
+        body.addEventListener("click",changeBackgoundColor);
+
+        function changeBackgoundColor(){
+            const randomColor=getRandomcolor();
+            body.style.backgroundColor = randomColor;
+        }
+
+        function getRandomcolor(){
+            const letters="0132465789ABCDEF";
+            let color="#"
+
+            for(let i=0;i < 6;i++){
+                color += letters[Math.floor(Math.random()*16)]
+            }
+
+            return color;
+        }
+    </script>
+</body>
+</html>
