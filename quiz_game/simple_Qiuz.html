@@ -1,132 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Game</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
 
+      #quiz-container {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 90%;
+        transition: transform 0.5s ease-in-out;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      #question-container {
+        width: 100%;
+      }
+
+      p#question {
+        font-size: 1.2rem;
+        color: #444;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      #point-display {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #point-display h2 {
+        font-size: 1.5rem;
+        color: #444;
+      }
+
+      .option-container {
+        margin-bottom: 15px;
+        justify-content: center;
+      }
+
+      input[type="radio"] {
+        margin-right: 10px;
+        transform: scale(1.2);
+      }
+
+      label {
+        font-size: 1rem;
+        color: #555;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto 0 auto;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #45a049;
+        scale: 115%;
+      }
+
+      #result {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        color: #007bff;
+        text-align: center;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      @media (max-width: 768px) {
         #quiz-container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 90%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        #question-container {
-            width: 100%;
+          width: 95%;
+          padding: 15px;
         }
 
         p#question {
-            font-size: 1.2rem;
-            color: #444;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        #point-display {
-            width: 100%;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #point-display h2 {
-            font-size: 1.5rem;
-            color: #444;
-        }
-
-        .option-container {
-            margin-bottom: 15px;
-            justify-content: center;
-        }
-
-        input[type="radio"] {
-            margin-right: 10px;
-            transform: scale(1.2);
+          font-size: 1rem;
         }
 
         label {
-            font-size: 1rem;
-            color: #555;
+          font-size: 0.9rem;
         }
 
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            margin: 20px auto 0 auto;
-            transition: background-color 0.3s;
+          font-size: 0.9rem;
+          padding: 8px 16px;
         }
-
-        button:hover {
-            background-color: #45a049;
-            scale: 115%;
-        }
-
-        #result {
-            margin-top: 20px;
-            font-size: 1.1rem;
-            color: #007BFF;
-            text-align: center;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        @media (max-width: 768px) {
-            #quiz-container {
-                width: 95%;
-                padding: 15px;
-            }
-
-            p#question {
-                font-size: 1rem;
-            }
-
-            label {
-                font-size: 0.9rem;
-            }
-
-            button {
-                font-size: 0.9rem;
-                padding: 8px 16px;
-            }
-        }
-
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="quiz-container" class="visible">
+      <div id="question-container">
+        <p id="question"></p>
+        <div class="options" id="options-container"></div>
+        <button id="submit-btn" onclick="submitAnswer()">Submit</button>
+        <p id="result"></p>
+      </div>
+      <div id="point-display">
+        <p id="current-points">Answer all questions to see your score!</p>
+      </div>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question: "1. Which company developed JavaScript?",
+          options: ["Netscape", "Microsoft", "Apple"],
+          answer: "Netscape",
+        },
+        {
+          question: "2. Which of the following is not a JavaScript data type?",
+          options: ["String", "Number", "Float"],
+          answer: "Float",
+        },
+        {
+          question: "3. Which symbol is used for comments in JavaScript?",
+          options: ["//", "<!-- -->", "/* */"],
+          answer: "//",
+        },
+        {
+          question:
+            "4. What is the correct syntax to declare a constant in JavaScript?",
+          options: ["let", "const", "var"],
+          answer: "const",
+        },
+        {
+          question:
+            "5. Which method is used to convert a JSON string into a JavaScript object?",
+          options: ["JSON.stringify()", "JSON.parse()", "JSON.objectify()"],
+          answer: "JSON.parse()",
+        },
+        {
+          question: "6. What does 'DOM' stand for in JavaScript?",
+          options: [
+            "Document Object Model",
+            "Data Object Model",
+            "Document Oriented Model",
+          ],
+          answer: "Document Object Model",
+        },
+        {
+          question: "7. Which keyword is used to create a class in JavaScript?",
+          options: ["function", "class", "object"],
+          answer: "class",
+        },
+        {
+          question:
+            "8. Which of the following is used to define a function in JavaScript?",
+          options: ["def", "function", "func"],
+          answer: "function",
+        },
+        {
+          question:
+            "9. How do you write 'Hello World' in an alert box in JavaScript?",
+          options: [
+            "alert('Hello World');",
+            "msg('Hello World');",
+            "console.log('Hello World');",
+          ],
+          answer: "alert('Hello World');",
+        },
+        {
+          question:
+            "10. What is the correct way to write an array in JavaScript?",
+          options: [
+            "let arr = (1, 2, 3);",
+            "let arr = [1, 2, 3];",
+            "let arr = {1, 2, 3};",
+          ],
+          answer: "let arr = [1, 2, 3];",
+        },
+      ];
+
+      let currentQuestionIndex = 0;
+      let score = 0;
+
+      function loadQuestion() {
+        const quizContainer = document.getElementById("quiz-container");
+        quizContainer.classList.add("hidden");
+
+        setTimeout(() => {
+          quizContainer.classList.remove("hidden");
+
+          const questionData = questions[currentQuestionIndex];
+          document.getElementById("question").textContent =
+            questionData.question;
+          const optionsContainer = document.getElementById("options-container");
+          optionsContainer.innerHTML = "";
+
+          questionData.options.forEach((option, index) => {
+            const optionContainer = document.createElement("div");
+            optionContainer.className = "option-container";
+
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.id = `option${index}`;
+            input.name = "option";
+            input.value = option;
+
+            const label = document.createElement("label");
+            label.htmlFor = `option${index}`;
+            label.textContent = option;
+
+            optionContainer.appendChild(input);
+            optionContainer.appendChild(label);
+            optionsContainer.appendChild(optionContainer);
+          });
+
+          document.getElementById("result").textContent = "";
+          quizContainer.classList.add("visible");
+        }, 500);
+      }
+
+      function submitAnswer() {
+        const questionData = questions[currentQuestionIndex];
+        const selectedOption = document.querySelector(
+          'input[name="option"]:checked'
+        );
+
+        if (!selectedOption) {
+          document.getElementById("result").textContent =
+            "Please select an answer.";
+          return;
+        }
+
+        if (selectedOption.value === questionData.answer) {
+          document.getElementById("result").textContent = "Correct!";
+          score++;
+        } else {
+          document.getElementById("result").textContent = "Incorrect!";
+        }
+
+        currentQuestionIndex++;
+
+        setTimeout(() => {
+          if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+          } else {
+            displayFinalScore();
+          }
+        }, 1000);
+      }
+
+      function displayFinalScore() {
+        const quizContainer = document.getElementById("quiz-container");
+        quizContainer.classList.add("hidden");
+
+        setTimeout(() => {
+          quizContainer.innerHTML = `
+                    <h1>Your Score: ${score}/${questions.length}</h1>
+                    <p style="text-align: center;">${
+                      score >= 7
+                        ? "Congratulations, you passed!"
+                        : "You failed. Try again."
+                    }</p>
+                    ${
+                      score < 7
+                        ? '<button onclick="restartQuiz()">Try Again</button>'
+                        : ""
+                    }
+                `;
+          quizContainer.classList.add("visible");
+        }, 500);
+
+        if (score >= 7) {
+          alert("PASS");
+        } else {
+          alert("Failed");
+        }
+      }
+
+      function restartQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+
+        document.getElementById("quiz-container").innerHTML = `
         <div id="question-container">
             <p id="question"></p>
             <div class="options" id="options-container"></div>
@@ -136,156 +320,13 @@
         <div id="point-display">
             <p id="current-points">Answer all questions to see your score!</p>
         </div>
-    </div>
+    `;
 
-    <script>
-        const questions = [
-            {
-                question: "1. Which company developed JavaScript?",
-                options: ["Netscape", "Microsoft", "Apple"],
-                answer: "Netscape"
-            },
-            {
-                question: "2. Which of the following is not a JavaScript data type?",
-                options: ["String", "Number", "Float"],
-                answer: "Float"
-            },
-            {
-                question: "3. Which symbol is used for comments in JavaScript?",
-                options: ["//", "<!-- -->", "/* */"],
-                answer: "//"
-            },
-            {
-                question: "4. What is the correct syntax to declare a constant in JavaScript?",
-                options: ["let", "const", "var"],
-                answer: "const"
-            },
-            {
-                question: "5. Which method is used to convert a JSON string into a JavaScript object?",
-                options: ["JSON.stringify()", "JSON.parse()", "JSON.objectify()"],
-                answer: "JSON.parse()"
-            },
-            {
-                question: "6. What does 'DOM' stand for in JavaScript?",
-                options: ["Document Object Model", "Data Object Model", "Document Oriented Model"],
-                answer: "Document Object Model"
-            },
-            {
-                question: "7. Which keyword is used to create a class in JavaScript?",
-                options: ["function", "class", "object"],
-                answer: "class"
-            },
-            {
-                question: "8. Which of the following is used to define a function in JavaScript?",
-                options: ["def", "function", "func"],
-                answer: "function"
-            },
-            {
-                question: "9. How do you write 'Hello World' in an alert box in JavaScript?",
-                options: ["alert('Hello World');", "msg('Hello World');", "console.log('Hello World');"],
-                answer: "alert('Hello World');"
-            },
-            {
-                question: "10. What is the correct way to write an array in JavaScript?",
-                options: ["let arr = (1, 2, 3);", "let arr = [1, 2, 3];", "let arr = {1, 2, 3};"],
-                answer: "let arr = [1, 2, 3];"
-            }
-        ];
-
-        let currentQuestionIndex = 0;
-        let score = 0;
-
-        function loadQuestion() {
-            const quizContainer = document.getElementById('quiz-container');
-            quizContainer.classList.add('hidden');
-
-            setTimeout(() => {
-                quizContainer.classList.remove('hidden');
-
-                const questionData = questions[currentQuestionIndex];
-                document.getElementById('question').textContent = questionData.question;
-                const optionsContainer = document.getElementById('options-container');
-                optionsContainer.innerHTML = '';
-
-                questionData.options.forEach((option, index) => {
-                    const optionContainer = document.createElement('div');
-                    optionContainer.className = 'option-container';
-
-                    const input = document.createElement('input');
-                    input.type = 'radio';
-                    input.id = `option${index}`;
-                    input.name = 'option';
-                    input.value = option;
-
-                    const label = document.createElement('label');
-                    label.htmlFor = `option${index}`;
-                    label.textContent = option;
-
-                    optionContainer.appendChild(input);
-                    optionContainer.appendChild(label);
-                    optionsContainer.appendChild(optionContainer);
-                });
-
-                document.getElementById('result').textContent = '';
-                quizContainer.classList.add('visible');
-            }, 500);
-        }
-
-        function submitAnswer() {
-            const questionData = questions[currentQuestionIndex];
-            const selectedOption = document.querySelector('input[name="option"]:checked');
-
-            if (!selectedOption) {
-                document.getElementById('result').textContent = "Please select an answer.";
-                return;
-            }
-
-            if (selectedOption.value === questionData.answer) {
-                document.getElementById('result').textContent = "Correct!";
-                score++;
-            } else {
-                document.getElementById('result').textContent = "Incorrect!";
-            }
-
-            currentQuestionIndex++;
-
-            setTimeout(() => {
-                if (currentQuestionIndex < questions.length) {
-                    loadQuestion();
-                } else {
-                    displayFinalScore();
-                }
-            }, 1000);
-        }
-
-        function displayFinalScore() {
-            const quizContainer = document.getElementById('quiz-container');
-            quizContainer.classList.add('hidden');
-
-            setTimeout(() => {
-                quizContainer.innerHTML = `
-                    <h1>Your Score: ${score}/${questions.length}</h1>
-                    <p style="text-align: center;">${score >= 7 ? "Congratulations, you passed!" : "You failed. Try again."}</p>
-                    ${score < 7 ? '<button onclick="restartQuiz()">Try Again</button>' : ''}
-                `;
-                quizContainer.classList.add('visible');
-            }, 500);
-
-            if (score >= 7) {
-                alert("PASS");
-            } else {
-                alert("Failed");
-            }
-        }
-
-        function restartQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
-            loadQuestion();
-        }
-
-        // Initial load
         loadQuestion();
+      }
+
+      // Initial load
+      loadQuestion();
     </script>
-</body>
+  </body>
 </html>
