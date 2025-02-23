@@ -41,20 +41,34 @@ ul {
 	border: 1px solid #fff;
 }
 
-.btn-secondary,
-.btn-third:hover {
-	background: #383848;
-}
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-third {background-image: linear-gradient(to right, #d0bd8c 0%, #f8b500  51%, #fceabb  100%)}
 
 .btn-primary:hover,
 .btn-secondary:hover,
 .btn-third {
-	background: #e4b95b;
-}
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 3px 4px 5px #000;
+   border-radius: 10px;
+   display: block;
+ }
 
-.primary-text {
-	color: #e4b95b;
-}
+ .btn-primary:hover,
+.btn-secondary:hover,
+.btn-third:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }
+
+
 
 /* Header Start */
 header {
@@ -248,17 +262,10 @@ header * {
 	font-weight: 500;
 }
 
-#menu .menu-items {
+#menu .menu-items{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-#menu .menu-items .menu-item {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 40px;
 }
 
 #menu .menu-items .menu-item img {
@@ -274,21 +281,35 @@ header * {
 	position: relative;
 }
 
-#menu .menu-items .menu-item span {
-	position: absolute;
-	right: 0px;
-	top: 0;
-}
-
 #menu .menu-items .menu-item p {
 	margin-top: 10px;
 }
+
+#menu .menu-items-left .menu-item {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	margin: 40px;
+}
+
+#menu .menu-items-right .menu-item {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	margin: 40px;
+}
+
 
 #menu .btn {
 	display: block;
 	margin: auto;
 	border: none;
 	margin-top: 30px;
+}
+
+.primary-text {
+	color: #e4b95b;
+	margin-left: 20px;
 }
 
 /* Menu Section End */
