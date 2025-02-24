@@ -59,6 +59,8 @@
        .invisible{
         visibility: hidden;
        }
+
+      
     </style>
 </head>
 <body>
@@ -83,13 +85,11 @@
     </div>
 </div>
 
-
-
 <script>
     const hour = document.querySelector('.hour');
-    const dot = document.querySelector('.dot');
     const min = document.querySelector('.min');
     const sec = document.querySelector('.sec');
+    const dot = document.querySelectorAll('.dot');
     const week = document.querySelector('.week');
 
     let showDot = true;
@@ -98,27 +98,33 @@
         showDot = !showDot;
         const now = new Date();
 
-        if (showDot){
-            dot.classList.add('invisible');
-        }
-        
-        else{
-            dot.classList.remove('invisible');
+        // Blinking dots
+        dot.forEach(d => {
+            d.classList.toggle('invisible', showDot);
+        });
 
-        }
 
-        hour.textContent = String(now.getHours()).padStart(2, '0');
-        min.textContent = String(now.getMinutes()).padStart(2, '0');
-        sec.textContent = String(now.getSeconds()).padStart(2, '0');
+        updateTime(hour, now.getHours());
+        updateTime(min, now.getMinutes());
+        updateTime(sec, now.getSeconds());
 
-        Array.from(week.children).forEach(
-            (ele) => {
-                ele.classList.remove("active");
-            }
-        );
+        Array.from(week.children).forEach(ele => ele.classList.remove("active"));
         week.children[now.getDay()].classList.add('active');
-    };
-    setInterval(update, 500);
+    }
+
+    function updateTime(element, newValue) {
+        const currentValue = element.textContent;
+        newValue = String(newValue).padStart(2, '0');
+        if (currentValue !== newValue) {
+            element.innerHTML = `<div class='flip'>${newValue}</div>`;
+            setTimeout(() => {
+                element.textContent = newValue;
+            }, 250);
+        }
+    }
+
+    setInterval(update, 1000);
+    update(); // Initial update
 </script>
 </body>
 </html>
