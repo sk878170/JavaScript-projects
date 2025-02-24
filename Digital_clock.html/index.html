@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digi-Clock</title>
+
+    <style>
+
+        body{
+
+            background-image: linear-gradient( 90.5deg,  rgba(152,45,255,1) 0.7%, rgba(90,241,255,1) 51.5%, rgba(65,239,164,1) 100.6% );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;            
+            
+        }
+        
+        .digital-clock{
+            position: absolute;
+            background-color: black;
+            color: white;
+            display: flex;
+            border-radius: 2rem;
+            -webkit-user-select: none;
+            user-select: none;
+            padding: 0  2rem;
+            border: 0.5rem solid #C0C0C0;
+            box-shadow: 10px 10px 10px black;
+            
+        }
+
+        .week{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 3rem;
+            color: #2d2d2d;
+            font-weight: bold;
+        }
+
+        .week .active{
+            color: white;
+        }
+
+        .time{
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .hour,.min,.dot{
+            display: inline-block;
+            font-size: 13rem;
+        }
+
+       .invisible{
+        visibility: hidden;
+       }
+    </style>
+</head>
+<body>
+    <div class="digital-clock">
+
+        <div class="week">
+            <div class="active">SUN</div>
+            <div>MON</div>
+            <div>TUE</div>
+            <div>WED</div>
+            <div>THU</div>
+            <div>FRI</div>
+            <div>SAT</div>
+        </div>
+        
+    <div class="time">
+        <div class="hour">12</div>
+        <div class="dot">:</div>
+        <div class="min">00</div>
+    </div>
+</div>
+
+
+
+<script>
+    const hour = document.querySelector('.hour');
+    const dot = document.querySelector('.dot');
+    const min = document.querySelector('.min');
+    const week = document.querySelector('.week');
+
+    let showDot = true;
+
+    function update() {
+        showDot = !showDot;
+        const now = new Date();
+
+        if (showDot){
+            dot.classList.add('invisible');
+        }
+        
+        else{
+            dot.classList.remove('invisible');
+
+        }
+
+        hour.textContent = String(now.getHours()).padStart(2, '0');
+        min.textContent = String(now.getMinutes()).padStart(2, '0');
+
+        Array
+        .from(week.children)
+        .forEach(
+            (ele) => {
+                ele.classList.remove("active");
+            }
+        );
+        week.children[now.getDay()].classList.add('active');
+    };
+    setInterval(update, 500);
+</script>
+</body>
+</html>
