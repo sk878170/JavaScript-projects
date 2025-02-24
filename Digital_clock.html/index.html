@@ -25,7 +25,7 @@
             border-radius: 2rem;
             -webkit-user-select: none;
             user-select: none;
-            padding: 0  2rem;
+            padding: 1rem 2rem;
             border: 0.5rem solid #C0C0C0;
             box-shadow: 10px 10px 10px black;
             
@@ -49,9 +49,11 @@
             font-family: 'Times New Roman', Times, serif;
         }
 
-        .hour,.min,.dot{
+        .hour,.min,.dot,.sec{
             display: inline-block;
-            font-size: 13rem;
+            font-size: 10rem;
+            position: relative;
+            overflow: hidden;
         }
 
        .invisible{
@@ -76,6 +78,8 @@
         <div class="hour">12</div>
         <div class="dot">:</div>
         <div class="min">00</div>
+        <div class="dot">:</div>
+        <div class="sec">00</div>
     </div>
 </div>
 
@@ -85,6 +89,7 @@
     const hour = document.querySelector('.hour');
     const dot = document.querySelector('.dot');
     const min = document.querySelector('.min');
+    const sec = document.querySelector('.sec');
     const week = document.querySelector('.week');
 
     let showDot = true;
@@ -104,10 +109,9 @@
 
         hour.textContent = String(now.getHours()).padStart(2, '0');
         min.textContent = String(now.getMinutes()).padStart(2, '0');
+        sec.textContent = String(now.getSeconds()).padStart(2, '0');
 
-        Array
-        .from(week.children)
-        .forEach(
+        Array.from(week.children).forEach(
             (ele) => {
                 ele.classList.remove("active");
             }
