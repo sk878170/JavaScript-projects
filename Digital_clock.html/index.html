@@ -13,7 +13,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;            
+            height: 100vh;
+            transition: background-color 0.3s;            
             
         }
         
@@ -28,6 +29,7 @@
             padding: 1rem 2rem;
             border: 0.5rem solid #C0C0C0;
             box-shadow: 10px 10px 10px black;
+            transition: background-color 0.3s, color 0.3s;
             
         }
 
@@ -60,10 +62,24 @@
         visibility: hidden;
        }
 
+       .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background: #444;
+            color: white;
+            transition: background 0.3s, color 0.3s;
+        }
       
     </style>
 </head>
 <body>
+    <button class="theme-toggle">Toggle Theme</button>
     <div class="digital-clock">
 
         <div class="week">
@@ -122,6 +138,8 @@
             }, 250);
         }
     }
+
+    
 
     setInterval(update, 1000);
     update(); // Initial update
